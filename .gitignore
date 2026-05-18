@@ -1,0 +1,16 @@
+data/raw/
+data/processed/
+models/*.npz
+models/*.npy
+models/*.pkl
+.env
+__pycache__/
+*.pyc
+.DS_Store
+.idea/
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.ipynb_checkpoints/
+*.zip
