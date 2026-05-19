@@ -26,7 +26,10 @@ def _load_taste_profile(customer_id: str, live: bool) -> str:
     path = DEMO_CACHE_DIR / "taste_profiles.json"
     if path.exists():
         profiles = json.loads(path.read_text())
-        return profiles.get(customer_id, "No cached taste profile. Enable live mode.")
+        return profiles.get(
+            customer_id,
+            "No cached taste profile for this customer. Demo cache only covers the curated demo users; enable live mode for on-demand generation.",
+        )
     return "Cache not found. Run `python src/inference.py --cache` first."
 
 

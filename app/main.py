@@ -18,6 +18,8 @@ ROOT_DIR = Path(__file__).resolve().parent.parent
 if str(ROOT_DIR) not in sys.path:
     sys.path.insert(0, str(ROOT_DIR))
 
+from src.storage import load_table
+
 # ── CLI flags (pass after `--` in `streamlit run app/main.py -- --live`)
 parser = argparse.ArgumentParser()
 parser.add_argument("--live", action="store_true", default=False)
@@ -25,6 +27,7 @@ args, _ = parser.parse_known_args()
 
 DEMO_CACHE_DIR = Path("demo_cache")
 TASTE_PROFILES_PATH = DEMO_CACHE_DIR / "taste_profiles.json"
+PROCESSED_DIR = Path("data/processed")
 
 # Load curated customer IDs from cache
 if TASTE_PROFILES_PATH.exists():
@@ -32,6 +35,12 @@ if TASTE_PROFILES_PATH.exists():
     DEMO_CUSTOMER_IDS = list(_profiles.keys())
 else:
     DEMO_CUSTOMER_IDS = []
+
+try:
+    CUSTOMER_INDEX = load_table(PROCESSED_DIR / "customer_index")
+    ALL_CUSTOMER_IDS = CUSTOMER_INDEX["customer_id"].tolist()
+except FileNotFoundError:
+    ALL_CUSTOMER_IDS = []
 
 st.set_page_config(
     page_title="H&M Taste Recommender",
@@ -46,10 +55,23 @@ with st.sidebar:
     st.title("H&M Recommender")
     st.caption("Personalized taste profiles powered by hybrid AI")
 
-    if DEMO_CUSTOMER_IDS:
+    input_mode = st.radio(
+        "Customer input",
+        ["Demo users", "Any customer ID"],
+        horizontal=False,
+    )
+
+    if input_mode == "Demo users" and DEMO_CUSTOMER_IDS:
         customer_id = st.selectbox(
-            "Select a customer",
+            "Select a demo customer",
             DEMO_CUSTOMER_IDS,
+            format_func=lambda x: x[:20] + "...",
+        )
+        st.caption("Cached profiles/explanations are available for demo users only.")
+    elif ALL_CUSTOMER_IDS:
+        customer_id = st.selectbox(
+            "Select any customer",
+            ALL_CUSTOMER_IDS,
             format_func=lambda x: x[:20] + "...",
         )
     else:
