@@ -67,6 +67,28 @@ docker build -t hm-recommender .
 docker run -p 8501:8501 hm-recommender
 ```
 
+## Render deployment
+
+This repo is configured to deploy on Render as a Docker web service.
+
+- At container startup, it runs `python src/demo_artifacts.py` to generate the
+  lightweight demo data and model artifacts inside the container.
+- It then starts Streamlit on `0.0.0.0:$PORT`, which matches Render's web
+  service requirements.
+- The deployed site does not need local image downloads. Recommendation images
+  are loaded by URL at render time.
+
+### Deploy from the repo
+
+1. Push the repo to GitHub.
+2. In Render, create a new Blueprint or Web Service from this repository.
+3. Render will detect [render.yaml](/Users/ponnimuthukumarasamy/Desktop/hm-recommender/render.yaml).
+4. If you want live OpenAI explanations, add `OPENAI_API_KEY` in the Render
+   dashboard.
+5. Deploy.
+
+If `OPENAI_API_KEY` is omitted, the app still runs in cached/demo mode.
+
 ## Repository Structure
 
 ```

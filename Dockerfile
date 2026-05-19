@@ -2,6 +2,10 @@ FROM python:3.10-slim
 
 WORKDIR /app
 
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
 COPY environment.yml .
 RUN pip install --no-cache-dir \
     streamlit pandas numpy scipy implicit sentence-transformers \
@@ -11,6 +15,6 @@ COPY . .
 
 EXPOSE 8501
 
-HEALTHCHECK CMD curl --fail http://localhost:8501/_stcore/health || exit 1
+HEALTHCHECK CMD /bin/sh -c 'curl --fail "http://localhost:${PORT:-8501}/_stcore/health" || exit 1'
 
-ENTRYPOINT ["streamlit", "run", "app/main.py", "--server.port=8501", "--server.address=0.0.0.0"]
+CMD ["/bin/sh", "-c", "python src/demo_artifacts.py && streamlit run app/main.py --server.address=0.0.0.0 --server.port=${PORT:-8501}"]

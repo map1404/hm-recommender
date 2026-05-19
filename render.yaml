@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: hm-recommender
+    runtime: docker
+    plan: free
+    branch: main
+    autoDeploy: true
+    healthCheckPath: /_stcore/health
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: OPENAI_MODEL
+        value: gpt-5-mini
