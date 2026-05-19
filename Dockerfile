@@ -17,4 +17,4 @@ EXPOSE 8501
 
 HEALTHCHECK CMD /bin/sh -c 'curl --fail "http://localhost:${PORT:-8501}/_stcore/health" || exit 1'
 
-CMD ["/bin/sh", "-c", "python src/demo_artifacts.py && streamlit run app/main.py --server.address=0.0.0.0 --server.port=${PORT:-8501}"]
+CMD ["/bin/sh", "-c", "python -m src.demo_artifacts && streamlit run app/main.py --server.address=0.0.0.0 --server.port=${PORT:-8501}"]
