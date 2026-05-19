@@ -69,16 +69,27 @@ with st.sidebar:
         )
         st.caption("Cached profiles/explanations are available for demo users only.")
     elif ALL_CUSTOMER_IDS:
-        customer_id = st.selectbox(
-            "Select any customer",
-            ALL_CUSTOMER_IDS,
-            format_func=lambda x: x[:20] + "...",
-        )
-    else:
         customer_id = st.text_input(
-            "Enter Customer ID",
+            "Enter any customer ID",
+            value=st.session_state.get("customer_id", ""),
             placeholder="Paste a customer_id from the dataset",
+        ).strip()
+
+        helper_customer_id = st.selectbox(
+            "Or pick a known customer ID",
+            [""] + ALL_CUSTOMER_IDS,
+            format_func=lambda x: "Choose from dataset..." if not x else x[:20] + "...",
         )
+        if helper_customer_id:
+            customer_id = helper_customer_id
+
+        st.caption("Use live mode for non-demo users if no cached profile is available.")
+    else:
+        customer_id = st.selectbox(
+            "Enter Customer ID",
+            value=st.session_state.get("customer_id", ""),
+            placeholder="Paste a customer_id from the dataset",
+        ).strip()
 
     live_mode = args.live or st.toggle("Live LLM mode", value=False,
                                         help="Disables caching — adds ~30s latency")
