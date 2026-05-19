@@ -124,10 +124,11 @@ if __name__ == "__main__":
     parser.add_argument("--cache", action="store_true", help="Pre-generate cache for all demo IDs")
     parser.add_argument("--live", action="store_true", help="Force real-time LLM call")
     parser.add_argument("--top_k", type=int, default=10)
+    parser.add_argument("--cache-users", type=int, default=3)
     args = parser.parse_args()
 
     if args.cache:
-        build_cache(top_k=args.top_k)
+        build_cache(customer_ids=demo_customer_ids(args.cache_users), top_k=args.top_k)
     elif args.customer_id:
         fn = run_live if args.live else run_cached
         result = fn(args.customer_id, top_k=args.top_k)

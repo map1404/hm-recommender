@@ -11,3 +11,11 @@ services:
         value: 10000
       - key: OPENAI_MODEL
         value: gpt-5-mini
+      - key: RENDER_SAMPLE_TRANSACTIONS
+        value: 200000
+      - key: RENDER_CACHE_USERS
+        value: 10
+      - key: RENDER_TRAIN_FACTORS
+        value: 32
+      - key: RENDER_TRAIN_EPOCHS
+        value: 8

@@ -36,6 +36,45 @@ def _api_key() -> str:
     return api_key
 
 
+def _fallback_taste_profile(summary: str) -> str:
+    lines = [line for line in summary.splitlines() if line.strip()]
+    if not lines:
+        return (
+            "You prefer practical everyday basics with a consistent wardrobe pattern. "
+            "Your purchase history is limited, so this profile is a lightweight fallback."
+        )
+
+    joined = " ".join(lines[:8]).lower()
+    style = "casual"
+    if any(token in joined for token in ["dress", "blouse", "skirt", "satin"]):
+        style = "feminine and polished"
+    elif any(token in joined for token in ["hoodie", "leggings", "running", "technical"]):
+        style = "sporty and functional"
+    elif any(token in joined for token in ["blazer", "trousers", "shirt", "tailored"]):
+        style = "minimal and polished"
+
+    colours = []
+    for colour in ["black", "white", "beige", "blue", "grey", "green", "pink", "red", "cream"]:
+        if colour in joined:
+            colours.append(colour)
+    colour_text = ", ".join(colours[:3]) if colours else "neutral tones"
+
+    return (
+        f"You prefer a {style} wardrobe built around {colour_text}. "
+        "Your purchase history leans toward repeatable everyday silhouettes and familiar categories."
+    )
+
+
+def _fallback_explanation(taste_profile: str, article: dict) -> str:
+    colour = article.get("colour_group_name", "overall")
+    product_type = article.get("product_type_name", "piece").lower()
+    garment_group = article.get("garment_group_name", "wardrobe").lower()
+    return (
+        f"This {product_type} matches your profile through its {colour.lower()} palette "
+        f"and {garment_group} styling cues."
+    )
+
+
 def _generate_text(system_prompt: str, user_prompt: str, max_tokens: int) -> str:
     response = None
     for attempt in range(MAX_RETRIES):
@@ -138,7 +177,10 @@ Write a concise 2-3 sentence taste profile that captures:
 Write in second person ("You prefer..."). Be specific, not generic.
 Do not invent attributes not evidenced by the purchase list."""
 
-    return _generate_text(system_prompt, user_prompt, MAX_TOKENS)
+    try:
+        return _generate_text(system_prompt, user_prompt, MAX_TOKENS)
+    except Exception:
+        return _fallback_taste_profile(summary)
 
 
 def generate_explanation(
@@ -164,4 +206,7 @@ Reference at least one specific attribute (colour, garment type, silhouette, or 
 that links the item back to their taste profile.
 Do not use generic phrases like "perfect for you" or "you'll love this"."""
 
-    return _generate_text(system_prompt, user_prompt, 128)
+    try:
+        return _generate_text(system_prompt, user_prompt, 128)
+    except Exception:
+        return _fallback_explanation(taste_profile, article)
