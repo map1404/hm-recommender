@@ -55,26 +55,23 @@ with st.sidebar:
     st.title("H&M Recommender")
     st.caption("Personalized taste profiles powered by hybrid AI")
 
-    input_mode = st.radio(
-        "Customer input",
-        ["Demo users", "Any customer ID"],
-        horizontal=False,
-    )
+    customer_id = st.text_input(
+        "Enter customer ID",
+        value=st.session_state.get("customer_id", ""),
+        placeholder="Paste a customer_id from the dataset",
+    ).strip()
 
-    if input_mode == "Demo users" and DEMO_CUSTOMER_IDS:
-        customer_id = st.selectbox(
-            "Select a demo customer",
-            DEMO_CUSTOMER_IDS,
-            format_func=lambda x: x[:20] + "...",
+    if DEMO_CUSTOMER_IDS:
+        demo_customer_id = st.selectbox(
+            "Or choose a demo customer",
+            [""] + DEMO_CUSTOMER_IDS,
+            format_func=lambda x: "Choose a demo user..." if not x else x[:20] + "...",
         )
-        st.caption("Cached profiles/explanations are available for demo users only.")
-    elif ALL_CUSTOMER_IDS:
-        customer_id = st.text_input(
-            "Enter any customer ID",
-            value=st.session_state.get("customer_id", ""),
-            placeholder="Paste a customer_id from the dataset",
-        ).strip()
+        if demo_customer_id:
+            customer_id = demo_customer_id
+        st.caption("Cached profiles/explanations are available for demo users.")
 
+    if ALL_CUSTOMER_IDS:
         helper_customer_id = st.selectbox(
             "Or pick a known customer ID",
             [""] + ALL_CUSTOMER_IDS,
@@ -82,14 +79,7 @@ with st.sidebar:
         )
         if helper_customer_id:
             customer_id = helper_customer_id
-
         st.caption("Use live mode for non-demo users if no cached profile is available.")
-    else:
-        customer_id = st.selectbox(
-            "Enter Customer ID",
-            value=st.session_state.get("customer_id", ""),
-            placeholder="Paste a customer_id from the dataset",
-        ).strip()
 
     live_mode = args.live or st.toggle("Live LLM mode", value=False,
                                         help="Disables caching — adds ~30s latency")
