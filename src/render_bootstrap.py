@@ -30,15 +30,18 @@ def main():
         _run(["python", "-m", "src.preprocessing"])
 
     if not _exists("models/als_model.pkl"):
-        _run([
-            "python",
-            "-m",
-            "src.training",
-            "--factors",
-            training_factors,
-            "--epochs",
-            training_epochs,
-        ])
+        try:
+            _run([
+                "python",
+                "-m",
+                "src.training",
+                "--factors",
+                training_factors,
+                "--epochs",
+                training_epochs,
+            ])
+        except subprocess.CalledProcessError:
+            print("ALS training failed; continuing with content-only recommendation fallback.", flush=True)
 
     if not _exists("models/article_embeddings.npy"):
         _run(["python", "-m", "src.content_based"])
