@@ -20,10 +20,10 @@ def _exists(path: str) -> bool:
 
 
 def main():
-    sample_rows = os.environ.get("RENDER_SAMPLE_TRANSACTIONS", "200000")
-    cache_users = os.environ.get("RENDER_CACHE_USERS", "10")
-    training_factors = os.environ.get("RENDER_TRAIN_FACTORS", "32")
-    training_epochs = os.environ.get("RENDER_TRAIN_EPOCHS", "8")
+    sample_rows = os.environ.get("RENDER_SAMPLE_TRANSACTIONS", "50000")
+    cache_users = os.environ.get("RENDER_CACHE_USERS", "3")
+    training_factors = os.environ.get("RENDER_TRAIN_FACTORS", "16")
+    training_epochs = os.environ.get("RENDER_TRAIN_EPOCHS", "4")
 
     if not _exists("data/processed/customer_index.pkl"):
         _run(["python", "-m", "src.download_data", "--sample-transactions", sample_rows])

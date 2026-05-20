@@ -94,6 +94,14 @@ This repo is configured to deploy on Render as a Docker web service.
 If `OPENAI_API_KEY` is omitted or rate-limited, the app still generates cached
 fallback text locally so the deployed site remains usable.
 
+For low-memory Render instances, the default deployment now uses a smaller
+startup workload:
+
+- `RENDER_SAMPLE_TRANSACTIONS=50000`
+- `RENDER_CACHE_USERS=3`
+- `RENDER_TRAIN_FACTORS=16`
+- `RENDER_TRAIN_EPOCHS=4`
+
 ## Repository Structure
 
 ```

@@ -12,10 +12,10 @@ services:
       - key: OPENAI_MODEL
         value: gpt-5-mini
       - key: RENDER_SAMPLE_TRANSACTIONS
-        value: 200000
+        value: 50000
       - key: RENDER_CACHE_USERS
-        value: 10
+        value: 3
       - key: RENDER_TRAIN_FACTORS
-        value: 32
+        value: 16
       - key: RENDER_TRAIN_EPOCHS
-        value: 8
+        value: 4
