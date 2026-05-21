@@ -56,7 +56,7 @@ def render():
             
             st.markdown(f"""
             <div style="display: flex; gap: 40px; margin-bottom: 40px;">
-                <div><div style="font-size: 10px; color: #888; letter-spacing: 1px;">ID</div><div style="font-size: 14px; font-weight: bold;">{customer_id[:12]}...</div></div>
+                <div><div style="font-size: 10px; color: #888; letter-spacing: 1px;">ID</div><div style="font-size: 14px; font-weight: bold;">{customer_id}</div></div>
                 <div><div style="font-size: 10px; color: #888; letter-spacing: 1px;">AGE</div><div style="font-size: 14px; font-weight: bold;">{age}</div></div>
                 <div><div style="font-size: 10px; color: #888; letter-spacing: 1px;">CLUB MEMBER</div><div style="font-size: 14px; font-weight: bold;">{member}</div></div>
             </div>
