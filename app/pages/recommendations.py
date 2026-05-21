@@ -81,8 +81,12 @@ def _article_card(article: dict):
         st.markdown(f"<p style='font-size:14px; margin:5px 0 0 0;'>{article.get('prod_name', 'Unknown')}</p>", unsafe_allow_html=True)
         st.markdown(f"<p style='font-size:12px; color:#777; margin:0;'>{article.get('product_type_name', '')}</p>", unsafe_allow_html=True)
         
-        price = article.get("price", 0)
-        st.markdown(f"<p style='font-weight:700; margin:5px 0;'>£{price:.2f}</p>", unsafe_allow_html=True)
+        price = article.get("price")
+        try:
+            price_text = f"£{float(price):.2f}" if price is not None else "Price unavailable"
+        except (TypeError, ValueError):
+            price_text = "Price unavailable"
+        st.markdown(f"<p style='font-weight:700; margin:5px 0;'>{price_text}</p>", unsafe_allow_html=True)
         
         
         if st.button("ADD TO CART", key=f"btn_{article.get('article_id')}"):

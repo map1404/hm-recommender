@@ -82,8 +82,37 @@ st.markdown(
             padding-top: 0px !important;
         }
 
+        .stApp,
+        .stApp p,
+        .stApp span,
+        .stApp label,
+        .stApp div,
+        .stApp li,
+        .stApp h1,
+        .stApp h2,
+        .stApp h3,
+        .stApp h4,
+        .stApp h5,
+        .stApp h6 {
+            color: var(--hm-text);
+        }
+
         .block-container {
             padding-top: 0px !important;
+        }
+
+        [data-testid="stAppViewContainer"] {
+            background: var(--hm-bg);
+        }
+
+        [data-testid="stExpander"] {
+            background: #FFFFFF;
+            border: 1px solid #EAEAEA;
+        }
+
+        [data-testid="stExpander"] summary,
+        [data-testid="stExpander"] summary p {
+            color: var(--hm-text) !important;
         }
 
         /* Top Promo Banner */
@@ -130,14 +159,54 @@ st.markdown(
         }
 
         /* Streamlit Input Overrides */
+        div[data-testid="stTextInput"] input,
+        div[data-testid="stNumberInput"] input,
+        div[data-testid="stTextArea"] textarea {
+            color: var(--hm-text) !important;
+            background: #FFFFFF !important;
+            caret-color: var(--hm-text) !important;
+        }
+
         div[data-baseweb="select"] > div {
+            color: var(--hm-text) !important;
+            background: #FFFFFF !important;
             border-radius: 0px !important;
             border: 1px solid var(--hm-text) !important;
+        }
+        div[data-baseweb="select"] * {
+            color: var(--hm-text) !important;
         }
         input {
             border-radius: 0px !important;
             border: 1px solid var(--hm-text) !important;
         }
+
+        div[role="radiogroup"] label,
+        div[role="radiogroup"] p,
+        [data-testid="stToggle"] label,
+        [data-testid="stToggle"] p,
+        [data-testid="stMarkdownContainer"] p,
+        [data-testid="stCaptionContainer"] {
+            color: var(--hm-text) !important;
+        }
+
+        button[kind="secondary"],
+        button[kind="secondary"] p,
+        .stButton > button,
+        .stButton > button p {
+            color: var(--hm-text) !important;
+        }
+
+        .stButton > button {
+            background: #FFFFFF !important;
+            border: 1px solid var(--hm-text) !important;
+        }
+
+        .stButton > button:hover {
+            border-color: var(--hm-red) !important;
+            color: var(--hm-red) !important;
+        }
+
         /* Style Streamlit Tabs to look minimalist */
         button[data-baseweb="tab"] {
             font-size: 14px;
