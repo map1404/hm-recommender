@@ -13,20 +13,20 @@ import argparse
 from pathlib import Path
 
 import streamlit as st
-
 import __main__
-from src.demo_artifacts import DemoALS
 
-# Trick pickle into finding DemoALS in the current main script
-__main__.DemoALS = DemoALS
 
 ROOT_DIR = Path(__file__).resolve().parent.parent
 if str(ROOT_DIR) not in sys.path:
     sys.path.insert(0, str(ROOT_DIR))
 
+
+from src.demo_artifacts import DemoALS
 from src.storage import load_table
 
-# ── CLI flags
+__main__.DemoALS = DemoALS
+
+# ── CLI flags ───────────────────────────────────────────────────────────────
 parser = argparse.ArgumentParser()
 parser.add_argument("--live", action="store_true", default=False)
 args, _ = parser.parse_known_args()
