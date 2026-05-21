@@ -101,6 +101,9 @@ def _article_card(article: dict):
         st.markdown('</div>', unsafe_allow_html=True)
 
 def render():
+    if "cart" not in st.session_state:
+        st.session_state["cart"] = []
+        
     customer_id = st.session_state.get("customer_id", "")
     live_mode = st.session_state.get("live_mode", False)
     cold_start = st.session_state.get("cold_start", False)
