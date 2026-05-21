@@ -55,37 +55,53 @@ with st.sidebar:
     st.title("H&M Recommender")
     st.caption("Personalized taste profiles powered by hybrid AI")
 
-    customer_id = st.text_input(
-        "Enter customer ID",
-        value=st.session_state.get("customer_id", ""),
-        placeholder="Paste a customer_id from the dataset",
-    ).strip()
+    user_mode = st.radio(
+        "User type",
+        ["Existing customer", "New customer / Cold-start user"],
+        index=0,
+        help=(
+            "Cold-start mode skips the personalized model and shows recently "
+            "popular H&M products — useful when there is no purchase history."
+        ),
+    )
+    cold_start = user_mode.startswith("New")
 
-    if DEMO_CUSTOMER_IDS:
-        demo_customer_id = st.selectbox(
-            "Or choose a demo customer",
-            [""] + DEMO_CUSTOMER_IDS,
-            format_func=lambda x: "Choose a demo user..." if not x else x[:20] + "...",
-        )
-        if demo_customer_id:
-            customer_id = demo_customer_id
-        st.caption("Cached profiles/explanations are available for demo users.")
+    if cold_start:
+        customer_id = "cold_start"
+        st.caption("No customer ID needed — popularity fallback will be used.")
+    else:
+        customer_id = st.text_input(
+            "Enter customer ID",
+            value=st.session_state.get("customer_id", ""),
+            placeholder="Paste a customer_id from the dataset",
+        ).strip()
 
-    if ALL_CUSTOMER_IDS:
-        helper_customer_id = st.selectbox(
-            "Or pick a known customer ID",
-            [""] + ALL_CUSTOMER_IDS,
-            format_func=lambda x: "Choose from dataset..." if not x else x[:20] + "...",
-        )
-        if helper_customer_id:
-            customer_id = helper_customer_id
-        st.caption("Use live mode for non-demo users if no cached profile is available.")
+        if DEMO_CUSTOMER_IDS:
+            demo_customer_id = st.selectbox(
+                "Or choose a demo customer",
+                [""] + DEMO_CUSTOMER_IDS,
+                format_func=lambda x: "Choose a demo user..." if not x else x[:20] + "...",
+            )
+            if demo_customer_id:
+                customer_id = demo_customer_id
+            st.caption("Cached profiles/explanations are available for demo users.")
+
+        if ALL_CUSTOMER_IDS:
+            helper_customer_id = st.selectbox(
+                "Or pick a known customer ID",
+                [""] + ALL_CUSTOMER_IDS,
+                format_func=lambda x: "Choose from dataset..." if not x else x[:20] + "...",
+            )
+            if helper_customer_id:
+                customer_id = helper_customer_id
+            st.caption("Use live mode for non-demo users if no cached profile is available.")
 
     live_mode = args.live or st.toggle("Live LLM mode", value=False,
                                         help="Disables caching — adds ~30s latency")
 
     st.session_state["customer_id"] = customer_id
     st.session_state["live_mode"] = live_mode
+    st.session_state["cold_start"] = cold_start
 
     st.divider()
     page = st.radio("Navigate", ["Profile", "Recommendations"], label_visibility="collapsed")

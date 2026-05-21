@@ -16,6 +16,7 @@ from pathlib import Path
 
 from src.hybrid import recommend
 from src.llm import generate_taste_profile, generate_explanation
+from src.popularity import is_cold_start_customer, recommend_popular
 from src.storage import load_table
 
 DEMO_CACHE_DIR = Path("demo_cache")
@@ -43,6 +44,17 @@ def demo_customer_ids(limit: int = 3) -> list[str]:
 
 def run_live(customer_id: str, top_k: int = 10) -> dict:
     """Full real-time pipeline for one customer."""
+    if is_cold_start_customer(customer_id):
+        print("Cold-start customer — using popularity fallback.")
+        return {
+            "customer_id": customer_id,
+            "taste_profile": (
+                "Cold-start mode: this user has no purchase history, so the "
+                "system recommends recently popular H&M products."
+            ),
+            "recommendations": recommend_popular(top_k=top_k),
+        }
+
     print(f"Generating taste profile for {customer_id[:16]}...")
     taste_profile = generate_taste_profile(customer_id)
 
@@ -68,6 +80,16 @@ def load_cache() -> tuple[dict, dict]:
 
 def run_cached(customer_id: str, top_k: int = 10) -> dict:
     """Load pre-generated outputs from demo_cache/."""
+    if is_cold_start_customer(customer_id):
+        return {
+            "customer_id": customer_id,
+            "taste_profile": (
+                "Cold-start mode: this user has no purchase history, so the "
+                "system recommends recently popular H&M products."
+            ),
+            "recommendations": recommend_popular(top_k=top_k),
+        }
+
     profiles, explanations = load_cache()
     if customer_id not in profiles:
         raise KeyError(

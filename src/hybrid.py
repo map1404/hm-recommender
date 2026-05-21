@@ -16,6 +16,7 @@ from scipy.sparse import load_npz
 
 from src.content_based import user_vector, cosine_scores
 from src.demo_artifacts import DemoALS
+from src.popularity import is_cold_start_customer, recommend_popular
 from src.storage import load_table
 
 MODELS_DIR = Path("models")
@@ -110,6 +111,9 @@ def recommend(
     Each dict has keys: article_id, product_type_name, colour_group_name,
                         prod_name, price, image_url, hybrid_score.
     """
+    if is_cold_start_customer(customer_id):
+        return recommend_popular(top_k=top_k)
+
     # --- load artefacts ---
     user_item = load_npz(MODELS_DIR / "user_item_matrix.npz")
     article_embeddings = np.load(MODELS_DIR / "article_embeddings.npy")
@@ -122,7 +126,7 @@ def recommend(
     idx_to_a = dict(zip(article_idx["article_idx"], article_idx["article_id"]))
 
     if customer_id not in c_to_idx:
-        raise ValueError(f"Unknown customer ID: {customer_id}")
+        return recommend_popular(top_k=top_k)
     uid = c_to_idx[customer_id]
 
     try:
