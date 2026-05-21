@@ -16,6 +16,11 @@ A hybrid recommendation system that learns each customer's taste profile from pu
 - When the app renders recommendations, it derives the product image URL from the recommended `article_id` and loads that URL directly.
 - This keeps setup lighter while still allowing recommended items to display images when the remote image URL is valid.
 
+## Legacy code
+
+- `legacy/scripts/` contains a previous version of the application kept for reference.
+- The active implementation in this repository lives in `app/` and `src/`.
+
 ## Quickstart
 
 ```bash
@@ -122,6 +127,9 @@ hm-recommender/
 ├── demo_cache/
 │   ├── taste_profiles.json      # Pre-generated taste profiles
 │   └── explanations.json        # Pre-generated item explanations
+├── legacy/
+│   ├── README.md                # Notes on archived application code
+│   └── scripts/                 # Previous version of the application
 ├── src/
 │   ├── preprocessing.py         # Data cleaning + feature engineering
 │   ├── training.py              # ALS model training
