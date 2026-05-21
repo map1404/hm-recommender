@@ -22,11 +22,14 @@ CACHE_DIR = Path("demo_cache")
 
 @dataclass
 class DemoALS:
+    """Small stand-in for the ALS API used by the lightweight demo dataset."""
+
     recommendations_by_user: dict[int, tuple[np.ndarray, np.ndarray]]
 
-    def recommend(self, userid, user_items, N=10, filter_already_liked=True):
+    def recommend(self, userid, _user_items, n=10, _filter_already_liked=True):
+        """Return the precomputed top-N recommendations for a demo user."""
         item_ids, scores = self.recommendations_by_user[userid]
-        return item_ids[:N], scores[:N]
+        return item_ids[:n], scores[:n]
 
 
 def _norm(vec):

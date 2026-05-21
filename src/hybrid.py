@@ -14,8 +14,7 @@ import numpy as np
 import pandas as pd
 from scipy.sparse import load_npz
 
-from src.content_based import user_vector, cosine_scores
-from src.demo_artifacts import DemoALS
+from src.content_based import cosine_scores, user_vector
 from src.popularity import is_cold_start_customer, recommend_popular
 from src.storage import load_table
 
@@ -67,7 +66,6 @@ def _content_only_recommendations(
     articles: pd.DataFrame,
     filter_purchased: bool,
 ) -> list[dict]:
-    a_to_idx = dict(zip(article_idx["article_id"], article_idx["article_idx"]))
     idx_to_a = dict(zip(article_idx["article_idx"], article_idx["article_id"]))
 
     uv = user_vector(customer_id, article_embeddings)

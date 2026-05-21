@@ -14,10 +14,9 @@ import pickle
 from pathlib import Path
 from typing import Optional
 
-import numpy as np
 import pandas as pd
 
-from src.storage import load_table, save_table
+from src.storage import load_table
 
 PROCESSED_DIR = Path("data/processed")
 RAW_DIR = Path("data/raw")
@@ -105,10 +104,15 @@ def build_popularity_recommendations(
 
     if "article_id" in articles.columns:
         articles = articles.copy()
-        articles["article_id"] = articles["article_id"].astype(type(grouped["article_id"].iloc[0]) if len(grouped) else str)
+        article_id_type = type(grouped["article_id"].iloc[0]) if len(grouped) else str
+        articles["article_id"] = articles["article_id"].astype(article_id_type)
 
     merged = grouped.merge(articles, on="article_id", how="left")
-    merged = merged.sort_values("popularity_score", ascending=False).head(top_n).reset_index(drop=True)
+    merged = (
+        merged.sort_values("popularity_score", ascending=False)
+        .head(top_n)
+        .reset_index(drop=True)
+    )
 
     MODELS_DIR.mkdir(parents=True, exist_ok=True)
     parquet_path = MODELS_DIR / "popular_items.parquet"
@@ -116,7 +120,7 @@ def build_popularity_recommendations(
     try:
         merged.to_parquet(parquet_path, index=False)
         print(f"Saved {len(merged)} popular items → {parquet_path}")
-    except Exception as e:
+    except (ImportError, OSError, ValueError) as e:
         with open(pkl_path, "wb") as f:
             pickle.dump(merged, f)
         print(f"Parquet failed ({e}); saved → {pkl_path}")

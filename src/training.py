@@ -19,6 +19,7 @@ MODELS_DIR = Path("models")
 
 def train(factors: int = 64, iterations: int = 20, regularization: float = 0.01,
           alpha: float = 40.0, random_state: int = 42):
+    """Train an ALS model from the saved user-item interaction matrix."""
     print("Loading user-item matrix...")
     user_item = load_npz(MODELS_DIR / "user_item_matrix.npz")
 

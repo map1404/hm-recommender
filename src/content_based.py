@@ -10,7 +10,6 @@ Outputs:
 from pathlib import Path
 
 import numpy as np
-import pandas as pd
 
 from src.storage import load_table
 
@@ -21,9 +20,10 @@ BATCH_SIZE = 512
 
 
 def build_embeddings():
+    """Build and persist sentence-transformer embeddings for each article."""
     from sentence_transformers import SentenceTransformer
 
-    print(f"Loading article metadata...")
+    print("Loading article metadata...")
     articles = load_table(PROCESSED_DIR / "articles")
     article_idx = load_table(PROCESSED_DIR / "article_index")
 

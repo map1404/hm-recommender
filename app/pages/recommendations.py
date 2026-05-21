@@ -47,7 +47,9 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
+
 def _load_recommendations(customer_id: str, live: bool, cold_start: bool = False) -> list[dict]:
+    """Load recommendation records for the current UI mode."""
     from src.hybrid import recommend
     from src.popularity import is_cold_start_customer, recommend_popular
 
@@ -71,28 +73,44 @@ def _load_recommendations(customer_id: str, live: bool, cold_start: bool = False
         a["explanation"] = cust_explanations.get(a["article_id"], "")
     return articles
 
+
 def _article_card(article: dict):
+    """Render a single recommendation card."""
     with st.container():
         st.markdown('<div class="product-card">', unsafe_allow_html=True)
         # Image
         st.image(article.get("image_url", ""), use_container_width=True)
-        
+
         # Product Info
-        st.markdown(f"<p style='font-size:14px; margin:5px 0 0 0;'>{article.get('prod_name', 'Unknown')}</p>", unsafe_allow_html=True)
-        st.markdown(f"<p style='font-size:12px; color:#777; margin:0;'>{article.get('product_type_name', '')}</p>", unsafe_allow_html=True)
-        
+        st.markdown(
+            (
+                "<p style='font-size:14px; margin:5px 0 0 0;'>"
+                f"{article.get('prod_name', 'Unknown')}</p>"
+            ),
+            unsafe_allow_html=True,
+        )
+        st.markdown(
+            (
+                "<p style='font-size:12px; color:#777; margin:0;'>"
+                f"{article.get('product_type_name', '')}</p>"
+            ),
+            unsafe_allow_html=True,
+        )
+
         price = article.get("price")
         try:
             price_text = f"£{float(price):.2f}" if price is not None else "Price unavailable"
         except (TypeError, ValueError):
             price_text = "Price unavailable"
-        st.markdown(f"<p style='font-weight:700; margin:5px 0;'>{price_text}</p>", unsafe_allow_html=True)
-        
-        
+        st.markdown(
+            f"<p style='font-weight:700; margin:5px 0;'>{price_text}</p>",
+            unsafe_allow_html=True,
+        )
+
         if st.button("ADD TO CART", key=f"btn_{article.get('article_id')}"):
             st.session_state["cart"].append(article)
-            st.toast(f"Added to bag", icon="🛍️")
-            
+            st.toast("Added to bag", icon="🛍️")
+
         # Style Note
         explanation = article.get("explanation", "")
         if explanation:
@@ -104,10 +122,12 @@ def _article_card(article: dict):
             )
         st.markdown('</div>', unsafe_allow_html=True)
 
+
 def render():
+    """Render the recommendation grid page."""
     if "cart" not in st.session_state:
         st.session_state["cart"] = []
-        
+
     customer_id = st.session_state.get("customer_id", "")
     live_mode = st.session_state.get("live_mode", False)
     cold_start = st.session_state.get("cold_start", False)
@@ -118,14 +138,17 @@ def render():
     # Header section with Cart counter
     col1, col2 = st.columns([3, 1])
     with col1:
-        st.markdown("<h2 style='font-weight:300; margin-bottom:30px;'>RECOMMENDED FOR YOU</h2>", unsafe_allow_html=True)
+        st.markdown(
+            "<h2 style='font-weight:300; margin-bottom:30px;'>RECOMMENDED FOR YOU</h2>",
+            unsafe_allow_html=True,
+        )
     with col2:
         st.markdown(f"**BAG ({len(st.session_state['cart'])})**", unsafe_allow_html=True)
 
     with st.spinner("Curating your collection..."):
         try:
             recs = _load_recommendations(customer_id, live_mode, cold_start=cold_start)
-        except Exception:
+        except (FileNotFoundError, ImportError, KeyError, ValueError):
             return
 
     # Grid Rendering

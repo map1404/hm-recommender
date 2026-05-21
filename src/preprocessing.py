@@ -9,13 +9,10 @@ Outputs:
   data/processed/user_item_counts.parquet — user × article purchase counts
 """
 
-import os
-import pandas as pd
-import numpy as np
 from pathlib import Path
+
+import pandas as pd
 from scipy.sparse import csr_matrix, save_npz
-import pyarrow as pa
-import pyarrow.parquet as pq
 
 from src.storage import save_table
 
@@ -30,11 +27,16 @@ LOOKBACK_DAYS = 180        # last N days of transactions to use
 
 
 def load_raw():
+    """Load the raw H&M transaction, article, and customer CSV files."""
     print("Loading raw CSVs...")
     transactions_path = RAW_DIR / "transactions_train.csv"
     articles_path = RAW_DIR / "articles.csv"
     customers_path = RAW_DIR / "customers.csv"
-    missing = [path.name for path in (transactions_path, articles_path, customers_path) if not path.exists()]
+    missing = [
+        path.name
+        for path in (transactions_path, articles_path, customers_path)
+        if not path.exists()
+    ]
     if missing:
         missing_text = ", ".join(missing)
         raise FileNotFoundError(
@@ -49,6 +51,7 @@ def load_raw():
 
 
 def clean_transactions(df: pd.DataFrame) -> pd.DataFrame:
+    """Filter transactions to the recent active-customer subset."""
     df["t_dat"] = pd.to_datetime(df["t_dat"])
     cutoff = df["t_dat"].max() - pd.Timedelta(days=LOOKBACK_DAYS)
     df = df[df["t_dat"] >= cutoff].copy()
@@ -63,6 +66,7 @@ def clean_transactions(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def clean_articles(df: pd.DataFrame) -> pd.DataFrame:
+    """Create a text field used by the content-based embedding model."""
     # Build a rich text description for embedding
     text_cols = [
         "product_type_name", "product_group_name", "graphical_appearance_name",
@@ -92,7 +96,10 @@ def build_user_item_matrix(transactions: pd.DataFrame):
     cols = counts["article_id"].map(article_idx)
     data = counts["count"].values
 
-    matrix = csr_matrix((data, (rows, cols)), shape=(len(customer_ids), len(article_ids)))
+    matrix = csr_matrix(
+        (data, (rows, cols)),
+        shape=(len(customer_ids), len(article_ids)),
+    )
 
     # Save index mappings alongside matrix for later retrieval
     idx_df = pd.DataFrame({
@@ -112,6 +119,7 @@ def build_user_item_matrix(transactions: pd.DataFrame):
 
 
 def main():
+    """Run the preprocessing pipeline and persist processed artifacts."""
     transactions, articles, customers = load_raw()
 
     transactions = clean_transactions(transactions)

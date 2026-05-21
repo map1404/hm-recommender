@@ -132,7 +132,7 @@ def build_cache(customer_ids: list[str] | None = None, top_k: int = 10):
                 article["explanation"] = exp
             profiles[cid] = taste_profile
             explanations[cid] = cid_explanations
-        except Exception as e:
+        except (FileNotFoundError, ImportError, KeyError, ValueError) as e:
             print(f"  ERROR for {cid[:16]}: {e}")
 
     TASTE_PROFILES_PATH.write_text(json.dumps(profiles, indent=2))

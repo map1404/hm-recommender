@@ -90,6 +90,7 @@ def _filter_dimension(filename: str, key: str, allowed_values: set[str]):
 
 
 def main():
+    """Download the full dataset or a reduced local-development sample."""
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--sample-transactions",

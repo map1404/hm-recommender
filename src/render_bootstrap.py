@@ -11,6 +11,7 @@ from pathlib import Path
 
 
 def _run(cmd: list[str]):
+    """Run a bootstrap subprocess and stream its command to stdout."""
     print(f"+ {' '.join(cmd)}", flush=True)
     subprocess.run(cmd, check=True)
 
@@ -20,6 +21,7 @@ def _exists(path: str) -> bool:
 
 
 def main():
+    """Prepare a lightweight dataset, model, and cache for Render startup."""
     sample_rows = os.environ.get("RENDER_SAMPLE_TRANSACTIONS", "50000")
     cache_users = os.environ.get("RENDER_CACHE_USERS", "3")
     training_factors = os.environ.get("RENDER_TRAIN_FACTORS", "16")
@@ -41,7 +43,11 @@ def main():
                 training_epochs,
             ])
         except subprocess.CalledProcessError:
-            print("ALS training failed; continuing with content-only recommendation fallback.", flush=True)
+            print(
+                "ALS training failed; continuing with content-only "
+                "recommendation fallback.",
+                flush=True,
+            )
 
     if not _exists("models/article_embeddings.npy"):
         _run(["python", "-m", "src.content_based"])

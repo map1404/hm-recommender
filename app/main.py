@@ -8,7 +8,6 @@ Routing:
 """
 
 import sys
-import json
 import argparse
 from pathlib import Path
 
@@ -32,15 +31,7 @@ parser.add_argument("--live", action="store_true", default=False)
 args, _ = parser.parse_known_args()
 
 DEMO_CACHE_DIR = Path("demo_cache")
-TASTE_PROFILES_PATH = DEMO_CACHE_DIR / "taste_profiles.json"
 PROCESSED_DIR = Path("data/processed")
-
-# Load curated customer IDs
-if TASTE_PROFILES_PATH.exists():
-    _profiles = json.loads(TASTE_PROFILES_PATH.read_text())
-    DEMO_CUSTOMER_IDS = list(_profiles.keys())
-else:
-    DEMO_CUSTOMER_IDS = []
 
 try:
     CUSTOMER_INDEX = load_table(PROCESSED_DIR / "customer_index")
@@ -264,24 +255,14 @@ with main_content:
             st.caption("Browsing as a guest. We are showing you the most popular items globally.")
         else:
             input_options = ["Enter Customer ID"]
-            if DEMO_CUSTOMER_IDS:
-                input_options.insert(0, "Choose Demo Account") 
             if ALL_CUSTOMER_IDS:
                 input_options.append("Randomly Select Known Customer")
             
             input_method = st.radio("Authentication Method:", input_options, horizontal=True)
             
             customer_id = ""
-            
-            if input_method == "Choose Demo Account":
-                customer_id = st.selectbox(
-                    "Select a curated profile:",
-                    [""] + DEMO_CUSTOMER_IDS,
-                    format_func=lambda x: "Choose a demo profile..." if not x else x[:20] + "...",
-                    label_visibility="collapsed"
-                )
-                
-            elif input_method == "Enter Customer ID":
+
+            if input_method == "Enter Customer ID":
                 default_val = st.session_state.get("customer_id", "")
                 if default_val == "cold_start":
                     default_val = ""
@@ -292,7 +273,7 @@ with main_content:
                     placeholder="Enter your exact Customer ID",
                     label_visibility="collapsed"
                 ).strip()
-                
+
             elif input_method == "Randomly Select Known Customer":
                 customer_id = st.selectbox(
                     "Select from database:",

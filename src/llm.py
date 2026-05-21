@@ -12,7 +12,6 @@ import os
 import time
 from pathlib import Path
 
-import pandas as pd
 import requests
 from requests import HTTPError
 from dotenv import load_dotenv
@@ -65,7 +64,7 @@ def _fallback_taste_profile(summary: str) -> str:
     )
 
 
-def _fallback_explanation(taste_profile: str, article: dict) -> str:
+def _fallback_explanation(_taste_profile: str, article: dict) -> str:
     colour = article.get("colour_group_name", "overall")
     product_type = article.get("product_type_name", "piece").lower()
     garment_group = article.get("garment_group_name", "wardrobe").lower()
@@ -179,12 +178,12 @@ Do not invent attributes not evidenced by the purchase list."""
 
     try:
         return _generate_text(system_prompt, user_prompt, MAX_TOKENS)
-    except Exception:
+    except (EnvironmentError, HTTPError, requests.RequestException, ValueError):
         return _fallback_taste_profile(summary)
 
 
 def generate_explanation(
-    customer_id: str,
+    _customer_id: str,
     taste_profile: str,
     article: dict,
 ) -> str:
@@ -202,11 +201,12 @@ Recommended article:
 - Garment group: {article.get('garment_group_name', '')}
 
 Write exactly one sentence explaining why this item suits this customer.
-Reference at least one specific attribute (colour, garment type, silhouette, or style)
+Reference at least one specific attribute
+(colour, garment type, silhouette, or style)
 that links the item back to their taste profile.
 Do not use generic phrases like "perfect for you" or "you'll love this"."""
 
     try:
         return _generate_text(system_prompt, user_prompt, 128)
-    except Exception:
+    except (EnvironmentError, HTTPError, requests.RequestException, ValueError):
         return _fallback_explanation(taste_profile, article)

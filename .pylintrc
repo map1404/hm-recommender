@@ -1,0 +1,19 @@
+[MASTER]
+persistent=no
+ignore=legacy
+
+[MESSAGES CONTROL]
+disable=
+    line-too-long,
+    trailing-whitespace,
+    wrong-import-position,
+    import-outside-toplevel,
+    missing-function-docstring,
+    missing-class-docstring,
+    invalid-name,
+    too-many-locals,
+    too-many-arguments,
+    too-many-positional-arguments,
+    use-dict-literal,
+    duplicate-code,
+    import-error
