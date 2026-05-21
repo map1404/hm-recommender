@@ -36,6 +36,16 @@ def _load_taste_profile(customer_id: str, live: bool) -> str:
 def render():
     customer_id = st.session_state.get("customer_id", "")
     live_mode = st.session_state.get("live_mode", False)
+    cold_start = st.session_state.get("cold_start", False)
+
+    if cold_start:
+        st.header("Customer Profile")
+        st.info(
+            "Cold-start mode: this user has no purchase history, so the system "
+            "recommends recently popular H&M products. Switch to "
+            "**Existing customer** in the sidebar to see a personalized profile."
+        )
+        return
 
     if not customer_id:
         st.info("Select a customer from the sidebar to begin.")

@@ -155,6 +155,32 @@ hm-recommender/
 | Fuwei   | ML Developer B (LLM + Hybrid) |
 | Lei     | Frontend + Presentation Lead |
 
+## Cold-start Recommendation
+
+The hybrid model requires per-customer signal: ALS latent factors come from
+collaborative filtering, and the content-based taste vector is the average of
+the user's purchased article embeddings. New users have neither — there is no
+ALS factor row for them, and their content-based taste vector is undefined.
+
+To stay usable in that case, the app falls back to a **popularity-based**
+recommender:
+
+- It looks at the most recent 60 days of transactions.
+- For each article it computes `purchase_count` and `unique_customers`.
+- It ranks by `popularity_score = 0.7 * purchase_count + 0.3 * unique_customers`,
+  which biases toward items with high total demand while still rewarding broad
+  appeal across distinct shoppers.
+- Article metadata is merged in and the top items are written to
+  `models/popular_items.parquet` (or `.pkl` if parquet is unavailable).
+- In the Streamlit sidebar, picking **New customer / Cold-start user** routes
+  the request through this fallback and skips the personalized pipeline.
+
+Build the popularity cache:
+
+```bash
+python src/popularity.py
+```
+
 ## Retraining the model
 
 ```bash

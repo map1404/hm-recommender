@@ -15,8 +15,12 @@ TOP_K = 10
 COLS = 2
 
 
-def _load_recommendations(customer_id: str, live: bool) -> list[dict]:
+def _load_recommendations(customer_id: str, live: bool, cold_start: bool = False) -> list[dict]:
     from src.hybrid import recommend
+    from src.popularity import is_cold_start_customer, recommend_popular
+
+    if cold_start or is_cold_start_customer(customer_id):
+        return recommend_popular(top_k=TOP_K)
 
     if live:
         from src.llm import generate_taste_profile, generate_explanation
@@ -66,17 +70,25 @@ def _article_card(article: dict):
 def render():
     customer_id = st.session_state.get("customer_id", "")
     live_mode = st.session_state.get("live_mode", False)
+    cold_start = st.session_state.get("cold_start", False)
 
-    if not customer_id:
+    if not cold_start and not customer_id:
         st.info("Select a customer from the sidebar to begin.")
         return
 
-    st.header("Recommended for you")
-    st.caption(f"Customer: `{customer_id[:20]}…`")
+    if cold_start:
+        st.header("Trending right now")
+        st.info(
+            "Cold-start mode: this user has no purchase history, so the system "
+            "recommends recently popular H&M products."
+        )
+    else:
+        st.header("Recommended for you")
+        st.caption(f"Customer: `{customer_id[:20]}…`")
 
     with st.spinner("Loading recommendations…"):
         try:
-            recs = _load_recommendations(customer_id, live_mode)
+            recs = _load_recommendations(customer_id, live_mode, cold_start=cold_start)
         except (KeyError, FileNotFoundError) as e:
             st.error(str(e))
             return
