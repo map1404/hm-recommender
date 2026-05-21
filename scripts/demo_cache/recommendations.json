@@ -1,0 +1,412 @@
+{
+  "DEMO_CASUAL_001": [
+    {
+      "article_id": "0791587001",
+      "prod_name": "Regular Fit Jersey Top",
+      "product_type_name": "T-shirt",
+      "colour_group_name": "White",
+      "garment_group_name": "Jersey Basic",
+      "price": 9.99
+    },
+    {
+      "article_id": "0860345002",
+      "prod_name": "Slim Jogger Trousers",
+      "product_type_name": "Trousers",
+      "colour_group_name": "Grey",
+      "garment_group_name": "Trousers",
+      "price": 24.99
+    },
+    {
+      "article_id": "0562245001",
+      "prod_name": "Oversized Hoodie",
+      "product_type_name": "Hoodie",
+      "colour_group_name": "Dark Grey",
+      "garment_group_name": "Jersey Fancy",
+      "price": 29.99
+    },
+    {
+      "article_id": "0706016001",
+      "prod_name": "5-Pack Cotton Socks",
+      "product_type_name": "Socks",
+      "colour_group_name": "White",
+      "garment_group_name": "Socks and Tights",
+      "price": 6.99
+    },
+    {
+      "article_id": "0714790001",
+      "prod_name": "Regular Fit Crewneck Sweatshirt",
+      "product_type_name": "Sweatshirt",
+      "colour_group_name": "Light Grey",
+      "garment_group_name": "Jersey Basic",
+      "price": 19.99
+    },
+    {
+      "article_id": "0791587002",
+      "prod_name": "Slim-Fit Jersey Shorts",
+      "product_type_name": "Shorts",
+      "colour_group_name": "Navy Blue",
+      "garment_group_name": "Shorts",
+      "price": 14.99
+    },
+    {
+      "article_id": "0820230003",
+      "prod_name": "Zip-through Fleece Jacket",
+      "product_type_name": "Jacket",
+      "colour_group_name": "Grey",
+      "garment_group_name": "Outdoor",
+      "price": 34.99
+    },
+    {
+      "article_id": "0706016002",
+      "prod_name": "Long-sleeve Jersey Top",
+      "product_type_name": "T-shirt",
+      "colour_group_name": "White",
+      "garment_group_name": "Jersey Basic",
+      "price": 12.99
+    },
+    {
+      "article_id": "0562245002",
+      "prod_name": "Straight-leg Sweatpants",
+      "product_type_name": "Trousers",
+      "colour_group_name": "Black",
+      "garment_group_name": "Trousers",
+      "price": 22.99
+    },
+    {
+      "article_id": "0820230004",
+      "prod_name": "Sporty Running Cap",
+      "product_type_name": "Cap/Hat",
+      "colour_group_name": "Grey",
+      "garment_group_name": "Accessories",
+      "price": 9.99
+    }
+  ],
+  "DEMO_FORMAL_002": [
+    {
+      "article_id": "0610776001",
+      "prod_name": "Slim-fit Blazer",
+      "product_type_name": "Blazer",
+      "colour_group_name": "Dark Blue",
+      "garment_group_name": "Suits & Tailoring",
+      "price": 59.99
+    },
+    {
+      "article_id": "0714790003",
+      "prod_name": "Oxford Dress Shirt",
+      "product_type_name": "Dress shirt",
+      "colour_group_name": "White",
+      "garment_group_name": "Shirts",
+      "price": 29.99
+    },
+    {
+      "article_id": "0610776002",
+      "prod_name": "Slim Suit Trousers",
+      "product_type_name": "Trousers",
+      "colour_group_name": "Black",
+      "garment_group_name": "Suits & Tailoring",
+      "price": 39.99
+    },
+    {
+      "article_id": "0706016003",
+      "prod_name": "Striped Dress Shirt",
+      "product_type_name": "Dress shirt",
+      "colour_group_name": "Light Blue",
+      "garment_group_name": "Shirts",
+      "price": 27.99
+    },
+    {
+      "article_id": "0820230005",
+      "prod_name": "Wool-blend Overcoat",
+      "product_type_name": "Coat",
+      "colour_group_name": "Dark Grey",
+      "garment_group_name": "Coats",
+      "price": 89.99
+    },
+    {
+      "article_id": "0791587003",
+      "prod_name": "Chino Slim Trousers",
+      "product_type_name": "Trousers",
+      "colour_group_name": "Beige",
+      "garment_group_name": "Trousers",
+      "price": 34.99
+    },
+    {
+      "article_id": "0562245003",
+      "prod_name": "Turtleneck Knitwear",
+      "product_type_name": "Jumper/Knitwear",
+      "colour_group_name": "Black",
+      "garment_group_name": "Knitwear",
+      "price": 34.99
+    },
+    {
+      "article_id": "0860345003",
+      "prod_name": "Classic Leather Belt",
+      "product_type_name": "Belt",
+      "colour_group_name": "Dark Brown",
+      "garment_group_name": "Accessories",
+      "price": 19.99
+    },
+    {
+      "article_id": "0714790004",
+      "prod_name": "Fine-knit V-neck Jumper",
+      "product_type_name": "Jumper/Knitwear",
+      "colour_group_name": "Navy Blue",
+      "garment_group_name": "Knitwear",
+      "price": 29.99
+    },
+    {
+      "article_id": "0706016004",
+      "prod_name": "Regular-fit Linen Shirt",
+      "product_type_name": "Shirt",
+      "colour_group_name": "Light Beige",
+      "garment_group_name": "Shirts",
+      "price": 24.99
+    }
+  ],
+  "DEMO_FEMININE_003": [
+    {
+      "article_id": "0610776003",
+      "prod_name": "Wrap Midi Dress",
+      "product_type_name": "Dress",
+      "colour_group_name": "Light Pink",
+      "garment_group_name": "Dresses Ladies",
+      "price": 39.99
+    },
+    {
+      "article_id": "0714790005",
+      "prod_name": "Floral Chiffon Blouse",
+      "product_type_name": "Blouse",
+      "colour_group_name": "Pink/Floral",
+      "garment_group_name": "Blouses",
+      "price": 24.99
+    },
+    {
+      "article_id": "0791587004",
+      "prod_name": "A-line Midi Skirt",
+      "product_type_name": "Skirt",
+      "colour_group_name": "Cream",
+      "garment_group_name": "Skirts",
+      "price": 29.99
+    },
+    {
+      "article_id": "0562245004",
+      "prod_name": "Tie-front Smock Dress",
+      "product_type_name": "Dress",
+      "colour_group_name": "White",
+      "garment_group_name": "Dresses Ladies",
+      "price": 34.99
+    },
+    {
+      "article_id": "0820230006",
+      "prod_name": "Lace-trim Cami Top",
+      "product_type_name": "Top",
+      "colour_group_name": "Dusty Pink",
+      "garment_group_name": "Tops",
+      "price": 17.99
+    },
+    {
+      "article_id": "0860345004",
+      "prod_name": "Pleated Midi Skirt",
+      "product_type_name": "Skirt",
+      "colour_group_name": "Beige",
+      "garment_group_name": "Skirts",
+      "price": 27.99
+    },
+    {
+      "article_id": "0706016005",
+      "prod_name": "Floral Wrap Blouse",
+      "product_type_name": "Blouse",
+      "colour_group_name": "Pink Flowers",
+      "garment_group_name": "Blouses",
+      "price": 22.99
+    },
+    {
+      "article_id": "0714790006",
+      "prod_name": "Wide-leg Linen Trousers",
+      "product_type_name": "Trousers",
+      "colour_group_name": "White",
+      "garment_group_name": "Trousers",
+      "price": 32.99
+    },
+    {
+      "article_id": "0610776004",
+      "prod_name": "Off-shoulder Mini Dress",
+      "product_type_name": "Dress",
+      "colour_group_name": "Cream",
+      "garment_group_name": "Dresses Ladies",
+      "price": 34.99
+    },
+    {
+      "article_id": "0562245005",
+      "prod_name": "Satin Slip Skirt",
+      "product_type_name": "Skirt",
+      "colour_group_name": "Dusty Rose",
+      "garment_group_name": "Skirts",
+      "price": 24.99
+    }
+  ],
+  "DEMO_MINIMAL_004": [
+    {
+      "article_id": "0791587005",
+      "prod_name": "Slim Crew-neck T-shirt",
+      "product_type_name": "T-shirt",
+      "colour_group_name": "White",
+      "garment_group_name": "Jersey Basic",
+      "price": 7.99
+    },
+    {
+      "article_id": "0860345005",
+      "prod_name": "Straight-leg Black Jeans",
+      "product_type_name": "Trousers",
+      "colour_group_name": "Black",
+      "garment_group_name": "Trousers",
+      "price": 34.99
+    },
+    {
+      "article_id": "0714790007",
+      "prod_name": "Fine-knit Cashmere-blend Jumper",
+      "product_type_name": "Jumper/Knitwear",
+      "colour_group_name": "Greige",
+      "garment_group_name": "Knitwear",
+      "price": 49.99
+    },
+    {
+      "article_id": "0706016006",
+      "prod_name": "Relaxed Shirt in Cotton",
+      "product_type_name": "Shirt",
+      "colour_group_name": "White",
+      "garment_group_name": "Shirts",
+      "price": 19.99
+    },
+    {
+      "article_id": "0820230007",
+      "prod_name": "Slim Tailored Trousers",
+      "product_type_name": "Trousers",
+      "colour_group_name": "Light Grey",
+      "garment_group_name": "Suits & Tailoring",
+      "price": 39.99
+    },
+    {
+      "article_id": "0562245006",
+      "prod_name": "Long-line Trench Coat",
+      "product_type_name": "Coat",
+      "colour_group_name": "Beige",
+      "garment_group_name": "Coats",
+      "price": 79.99
+    },
+    {
+      "article_id": "0610776005",
+      "prod_name": "Fitted Black Turtleneck",
+      "product_type_name": "Jumper/Knitwear",
+      "colour_group_name": "Black",
+      "garment_group_name": "Knitwear",
+      "price": 24.99
+    },
+    {
+      "article_id": "0791587006",
+      "prod_name": "Straight-leg White Trousers",
+      "product_type_name": "Trousers",
+      "colour_group_name": "White",
+      "garment_group_name": "Trousers",
+      "price": 29.99
+    },
+    {
+      "article_id": "0714790008",
+      "prod_name": "Ribbed Tank Top",
+      "product_type_name": "Top",
+      "colour_group_name": "Off White",
+      "garment_group_name": "Jersey Basic",
+      "price": 9.99
+    },
+    {
+      "article_id": "0860345006",
+      "prod_name": "Cotton-blend Box-fit Jumper",
+      "product_type_name": "Jumper/Knitwear",
+      "colour_group_name": "Light Grey",
+      "garment_group_name": "Knitwear",
+      "price": 27.99
+    }
+  ],
+  "DEMO_BOLD_005": [
+    {
+      "article_id": "0610776006",
+      "prod_name": "Abstract Print Blouse",
+      "product_type_name": "Blouse",
+      "colour_group_name": "Orange/Multicolour",
+      "garment_group_name": "Blouses",
+      "price": 24.99
+    },
+    {
+      "article_id": "0714790009",
+      "prod_name": "Colour-block Knit Jumper",
+      "product_type_name": "Jumper/Knitwear",
+      "colour_group_name": "Yellow/Blue",
+      "garment_group_name": "Knitwear",
+      "price": 34.99
+    },
+    {
+      "article_id": "0791587007",
+      "prod_name": "Wide-leg Printed Trousers",
+      "product_type_name": "Trousers",
+      "colour_group_name": "Bright Blue/Pattern",
+      "garment_group_name": "Trousers",
+      "price": 29.99
+    },
+    {
+      "article_id": "0562245007",
+      "prod_name": "Floral Wrap Midi Dress",
+      "product_type_name": "Dress",
+      "colour_group_name": "Pink/Multicolour",
+      "garment_group_name": "Dresses Ladies",
+      "price": 39.99
+    },
+    {
+      "article_id": "0820230008",
+      "prod_name": "Stripe Co-ord Shorts",
+      "product_type_name": "Shorts",
+      "colour_group_name": "Multicolour",
+      "garment_group_name": "Shorts",
+      "price": 19.99
+    },
+    {
+      "article_id": "0706016007",
+      "prod_name": "Tie-dye Cotton T-shirt",
+      "product_type_name": "T-shirt",
+      "colour_group_name": "Turquoise/Multicolour",
+      "garment_group_name": "Jersey Fancy",
+      "price": 12.99
+    },
+    {
+      "article_id": "0860345007",
+      "prod_name": "Stripe Knit Cardigan",
+      "product_type_name": "Cardigan",
+      "colour_group_name": "Red/Multi",
+      "garment_group_name": "Knitwear",
+      "price": 27.99
+    },
+    {
+      "article_id": "0714790010",
+      "prod_name": "Patchwork Denim Jacket",
+      "product_type_name": "Jacket",
+      "colour_group_name": "Multicolour Denim",
+      "garment_group_name": "Denim",
+      "price": 49.99
+    },
+    {
+      "article_id": "0791587008",
+      "prod_name": "Bright Yellow Midi Skirt",
+      "product_type_name": "Skirt",
+      "colour_group_name": "Bright Yellow",
+      "garment_group_name": "Skirts",
+      "price": 22.99
+    },
+    {
+      "article_id": "0562245008",
+      "prod_name": "Geometric Jacquard Top",
+      "product_type_name": "Top",
+      "colour_group_name": "Blue/Green/Pattern",
+      "garment_group_name": "Jersey Fancy",
+      "price": 19.99
+    }
+  ]
+}
